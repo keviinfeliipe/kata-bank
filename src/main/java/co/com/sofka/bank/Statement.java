@@ -16,16 +16,12 @@ public class Statement {
     }
 
     public void add(BigDecimal amount, LocalDate date, TransactionType type, BigDecimal balance){
-            transactions.add(
-                    new Transaction(
-                            date,
-                            new TransactionDetail(type, new TransactionValues(amount, balance))
-                    ));
+            transactions.add(new Transaction(date, new TransactionDetail(type, new TransactionValues(amount, balance))));
     }
 
     public Stream<Transaction> orderList(){
         return transactions.stream()
-                .sorted(Comparator.comparing(Transaction::toString).reversed());
+                .sorted(Comparator.comparing(Transaction::date).reversed());
     }
 
     public Set<Transaction> filterByType(TransactionType type){
@@ -46,9 +42,8 @@ public class Statement {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Statement{");
-        sb.append("transactions=").append(transactions);
-        sb.append('}');
-        return sb.toString();
+        String sb = "Statement{" + "transactions=" + transactions +
+                '}';
+        return sb;
     }
 }
